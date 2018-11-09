@@ -7,15 +7,19 @@ const app             = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
+// EJS Modules
+app.set("view engine", "ejs");
+
 // Serve CSS files to ejs views
 app.use(express.static(__dirname + '/stylesheets'));
 
+// Seperat Routes for Resource
+const clientsRoutes = require("./routes/clients.js");
+
+// Entry point
 app.get("/", (req, res) => {
   res.render("welcome");
 });
-
-// Seperat Routes for Resource
-const clientsRoutes = require("./routes/clients.js");
 
 //Mount Routes
 app.use("/clients", clientsRoutes());
