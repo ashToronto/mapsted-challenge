@@ -14,7 +14,7 @@ function add(a, b) {
 // There are only 5 entries in the ontario section of the building data.
 // building_id and item_id are keys to each other
 // So we refecence building_id as item_id the purchases array
-// item ids for ontario are 7 to 13 
+// building ids for ontario are 7 to 13
 
 // Total purchases for Samsung Manufacturers
   router.get("/info", (req, res) => {
@@ -23,14 +23,15 @@ function add(a, b) {
         // Loop through data object until purchase costs arrays - Tripple nested for loop approach
         for (i in response.data){
             for (j in response.data[i].usage_statistics.session_infos){
-              for (k in response.data[i].usage_statistics.session_infos[j].purchases){
-                const placeholder = response.data[i].usage_statistics.session_infos[j].purchases
-                if (placeholder[k].item_id === 7 || placeholder[k].item_id === 8 || placeholder[k].item_id === 9 || placeholder[k].item_id === 10 || placeholder[k].item_id === 11 || placeholder[k].item_id === 12){
-                  ontario_costs.push(placeholder[k].cost)
+              const placeholder = response.data[i].usage_statistics.session_infos[j].building_id
+                if (placeholder === 7 || placeholder === 8 || placeholder === 9 || placeholder === 10 || placeholder === 11 || placeholder === 12){
+                  for (k in response.data[i].usage_statistics.session_infos[j].purchases){
+                    ontario_costs.push(response.data[i].usage_statistics.session_infos[j].purchases[k].cost)
+                  }
                 }
               }
             }
-        }
+
         // Sum all purchase costs
         let purchase_costs_ontario = ontario_costs.reduce(add, 0)
         purchase_costs_ontario = Math.floor(purchase_costs_ontario * 100) / 100

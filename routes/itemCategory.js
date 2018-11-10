@@ -6,6 +6,11 @@ module.exports = () => {
 
 let item_category = [];
 
+// Helper function Sum all costs from array
+function add(a, b) {
+    return a + b;
+}
+
 // Total number of times item (item_id = 47) was purchased
   router.get("/info", (req, res) => {
     axios.get(`http://interview.mapsted.com/RnD/test-analytics.json`)
@@ -15,13 +20,14 @@ let item_category = [];
             for (j in response.data[i].usage_statistics.session_infos){
               for (k in response.data[i].usage_statistics.session_infos[j].purchases){
                 if (response.data[i].usage_statistics.session_infos[j].purchases[k].item_category_id === 7){
-                  item_category.push(response.data[i].usage_statistics.session_infos[j].purchases[k].item_category_id)
+                  item_category.push(response.data[i].usage_statistics.session_infos[j].purchases[k].cost)
                 }
               }
             }
         }
 
-        let category_frequency = item_category.length
+        let category_frequency = item_category.reduce(add, 0)
+        category_frequency = Math.floor(category_frequency * 100) / 100
         const templateVars = {data: category_frequency}
         console.log("ITEM CATEGORY TIMES PURCHASED", category_frequency)
         res.render("item_category", templateVars)

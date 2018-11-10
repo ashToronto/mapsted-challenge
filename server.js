@@ -19,6 +19,7 @@ const times_Purchased = require("./routes/timesPurchased.js");
 const item_category = require("./routes/itemCategory.js");
 const ontario_costs = require("./routes/ontarioCosts.js");
 const us_costs = require("./routes/usCosts.js");
+const greatest_cost = require("./routes/allCosts.js");
 
 // Entry point
 app.get("/", (req, res) => {
@@ -31,6 +32,7 @@ app.use("/timesPurchased", times_Purchased());
 app.use("/itemCategory", item_category());
 app.use("/ontarioCosts", ontario_costs());
 app.use("/usCosts", us_costs());
+app.use("/allCosts", greatest_cost());
 
 // Begin Server
 app.listen(PORT, () => {

@@ -36,10 +36,11 @@ function add(a, b) {
           for (d in us_items_id){
             for (i in result.data){
                 for (j in result.data[i].usage_statistics.session_infos){
-                  for (k in result.data[i].usage_statistics.session_infos[j].purchases){
-                    if (result.data[i].usage_statistics.session_infos[j].purchases[k].item_id === us_items_id[d]){
-                      us_costs.push(result.data[i].usage_statistics.session_infos[j].purchases[k].cost)
-                  }
+                  const placeholder = result.data[i].usage_statistics.session_infos[j]
+                    if (placeholder.building_id === us_items_id[d]){
+                      for (k in placeholder.purchases){
+                      us_costs.push(placeholder.purchases[k].cost)
+                    }
                   }
                 }
             }
@@ -48,6 +49,7 @@ function add(a, b) {
           american_purchases = Math.floor(american_purchases * 100) / 100
           const templateVars = {data: american_purchases}
           res.render("us_costs", templateVars)
+          // Clear array cache incase user navigates and returns to this link
           us_costs = [];
         })
       )
