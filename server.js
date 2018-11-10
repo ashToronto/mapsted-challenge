@@ -13,8 +13,12 @@ app.set("view engine", "ejs");
 // Serve CSS files to ejs views
 app.use(express.static(__dirname + '/stylesheets'));
 
-// Seperat Routes for Resource
-const clientsRoutes = require("./routes/clients.js");
+// Seperate Routes for Resources
+const samsung_Route = require("./routes/manufacturers.js");
+const times_Purchased = require("./routes/timesPurchased.js");
+const item_category = require("./routes/itemCategory.js");
+const ontario_costs = require("./routes/ontarioCosts.js");
+const us_costs = require("./routes/usCosts.js");
 
 // Entry point
 app.get("/", (req, res) => {
@@ -22,7 +26,11 @@ app.get("/", (req, res) => {
 });
 
 //Mount Routes
-app.use("/clients", clientsRoutes());
+app.use("/manufacturers", samsung_Route());
+app.use("/timesPurchased", times_Purchased());
+app.use("/itemCategory", item_category());
+app.use("/ontarioCosts", ontario_costs());
+app.use("/usCosts", us_costs());
 
 // Begin Server
 app.listen(PORT, () => {
