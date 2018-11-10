@@ -1,20 +1,16 @@
-const express = require("express");
-const router = express.Router();
-const axios = require('axios');
-
-module.exports = () => {
-
-let ontario_costs = [];
-
-// Helper function Sum all costs from array
-function add(a, b) {
-    return a + b;
-}
-
 // There are only 5 entries in the ontario section of the building data.
 // building_id and item_id are keys to each other
 // So we refecence building_id as item_id the purchases array
 // building ids for ontario are 7 to 13
+
+const express = require("express");
+const router = express.Router();
+const axios = require('axios');
+const helpers = require('./helpers');
+
+module.exports = () => {
+
+let ontario_costs = [];
 
 // Total purchases for Samsung Manufacturers
   router.get("/info", (req, res) => {
@@ -33,7 +29,7 @@ function add(a, b) {
             }
 
         // Sum all purchase costs
-        let purchase_costs_ontario = ontario_costs.reduce(add, 0)
+        let purchase_costs_ontario = ontario_costs.reduce(helpers.add, 0)
         purchase_costs_ontario = Math.floor(purchase_costs_ontario * 100) / 100
         //Render Total cost to EJS template
         const templateVars = {data: purchase_costs_ontario}

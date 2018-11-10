@@ -5,37 +5,16 @@
 // save summed value to summary array
 // find index of greatest value in summary array
 
-
 const express = require("express");
 const router = express.Router();
 const axios = require('axios');
+const helpers = require('./helpers');
+const helpers2 = require('./helpers');
 
 module.exports = () => {
 
   let index_id = [];
   let item_total_cost = [];
-
-
-  // Helper function Sum all costs from array
-  function add(a, b) {
-    return a + b;
-  }
-
-  function indexOfMax(arr) {
-    if (arr.length === 0) {
-      return -1;
-    }
-    var max = arr[0];
-    var maxIndex = 0;
-    for (var i = 1; i < arr.length; i++) {
-      if (arr[i] > max) {
-        maxIndex = i;
-        max = arr[i];
-      }
-    }
-
-    return maxIndex + 1;
-  }
 
   // Total purchases for Samsung Manufacturers
   router.get("/info", (req, res) => {
@@ -62,12 +41,12 @@ module.exports = () => {
                 }
               }
             }
-            let total = temporary.reduce(add, 0)
+            let total = temporary.reduce(helpers.add, 0)
             item_total_cost.push(total)
             temporary = []
           }
           console.log("TOTAL: ", item_total_cost)
-          const greatest_cost = indexOfMax(item_total_cost)
+          const greatest_cost = helpers2.indexOfMax(item_total_cost)
           const templateVars = {
             data: greatest_cost
           }

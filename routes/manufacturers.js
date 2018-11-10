@@ -1,15 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const axios = require('axios');
+const helpers = require('./helpers');
 
 module.exports = () => {
 
 let session_purchases = [];
-
-// Helper function Sum all costs from array
-function add(a, b) {
-    return a + b;
-}
 
 // Total purchases for Samsung Manufacturers
   router.get("/info", (req, res) => {
@@ -26,7 +22,7 @@ function add(a, b) {
           }
         }
         // Sum all purchase costs
-        let total = session_purchases.reduce(add, 0)
+        let total = session_purchases.reduce(helpers.add, 0)
         total = Math.floor(total * 100) / 100
         //Render Total cost to EJS template
         const templateVars = {data: total}

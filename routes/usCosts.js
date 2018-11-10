@@ -1,20 +1,16 @@
+// Over here we will have to loop over both sets of api data.
+// We will store American buiding_ids in an array
+// and reference them against item_ids in the second api
+
 const express = require("express");
 const router = express.Router();
 const axios = require('axios');
+const helpers = require('./helpers');
 
 module.exports = () => {
 
 let us_items_id = [];
 let us_costs = [];
-
-// Helper function Sum all costs from array
-function add(a, b) {
-    return a + b;
-}
-
-// Over here we will have to loop over both sets of api data.
-// We will store American buiding_ids in an array
-// and reference them against item_ids in the second api
 
 // Total purchases for Samsung Manufacturers
   router.get("/info", (req, res) => {
@@ -45,7 +41,7 @@ function add(a, b) {
                 }
             }
           }
-          let american_purchases = us_costs.reduce(add, 0)
+          let american_purchases = us_costs.reduce(helpers.add, 0)
           american_purchases = Math.floor(american_purchases * 100) / 100
           const templateVars = {data: american_purchases}
           res.render("us_costs", templateVars)

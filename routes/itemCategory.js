@@ -1,15 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const axios = require('axios');
+const helpers = require('./helpers');
 
 module.exports = () => {
 
 let item_category = [];
-
-// Helper function Sum all costs from array
-function add(a, b) {
-    return a + b;
-}
 
 // Total number of times item (item_id = 47) was purchased
   router.get("/info", (req, res) => {
@@ -26,7 +22,7 @@ function add(a, b) {
             }
         }
 
-        let category_frequency = item_category.reduce(add, 0)
+        let category_frequency = item_category.reduce(helpers.add, 0)
         category_frequency = Math.floor(category_frequency * 100) / 100
         const templateVars = {data: category_frequency}
         console.log("ITEM CATEGORY TIMES PURCHASED", category_frequency)
