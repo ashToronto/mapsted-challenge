@@ -1,7 +1,10 @@
+
+// Sum all values in an array
 function add(a, b) {
-    return a + b;
+  return a + b;
 }
 
+// Get index of highest value in an array
 function indexOfMax(arr) {
   if (arr.length === 0) {
     return -1;
