@@ -2,8 +2,6 @@
 /node_modules
 
 # misc
-.env
-.dotenv
 .DS_Store
 .env.local
 .env.development.local
