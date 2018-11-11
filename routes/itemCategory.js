@@ -23,7 +23,7 @@ module.exports = () => {
         }
 
         let category_frequency = item_category.reduce(helpers.add, 0)
-        category_frequency = Math.floor(category_frequency * 100) / 100
+        category_frequency = Math.trunc(category_frequency)
         const templateVars = {
           data: category_frequency
         }
